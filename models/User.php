@@ -1,70 +1,44 @@
 <?php
 
 namespace app\models;
+use Ramsey\Uuid\Uuid;
+use Yii;
 
-class User extends \yii\base\Object implements \yii\web\IdentityInterface
+/**
+ * User model
+ *
+ * @property string $id
+ * @property string $username
+ * @property string $phone
+ * @property string $email
+ * @property string $name
+ * @property string $info
+ * @property string $key
+ * @property string $token
+ * @property string $session_id
+ * @property integer $created_at
+ * @property integer $updated_at
+ *
+ */
+class User extends BasicModel
 {
-    public $id;
-    public $username;
-    public $password;
-    public $authKey;
-    public $accessToken;
-
-    private static $users = [
-        '100' => [
-            'id' => '100',
-            'username' => 'admin',
-            'password' => 'admin',
-            'authKey' => 'test100key',
-            'accessToken' => '100-token',
-        ],
-        '101' => [
-            'id' => '101',
-            'username' => 'demo',
-            'password' => 'demo',
-            'authKey' => 'test101key',
-            'accessToken' => '101-token',
-        ],
-    ];
-
-
     /**
      * @inheritdoc
      */
     public static function findIdentity($id)
     {
-        return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public static function findIdentityByAccessToken($token, $type = null)
-    {
-        foreach (self::$users as $user) {
-            if ($user['accessToken'] === $token) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return self::findOne($id);
     }
 
     /**
      * Finds user by username
      *
-     * @param string $username
-     * @return static|null
+     * @param string $query
+     * @return User|null
      */
-    public static function findByUsername($username)
+    public static function findByUsername(string $query): User
     {
-        foreach (self::$users as $user) {
-            if (strcasecmp($user['username'], $username) === 0) {
-                return new static($user);
-            }
-        }
-
-        return null;
+        return self::findOne(['or', ['phone' => $query], ['email' => $query]]);
     }
 
     /**
@@ -75,34 +49,35 @@ class User extends \yii\base\Object implements \yii\web\IdentityInterface
         return $this->id;
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function getAuthKey()
+    public function beforeSave($insert)
     {
-        return $this->authKey;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function validateAuthKey($authKey)
-    {
-        return $this->authKey === $authKey;
+        if (!$this->key) {
+            $this->key = Uuid::uuid4();
+        }
+        if ($this->session_id !== Yii::$app->session->getId()) {
+            $this->session_id = Yii::$app->session->getId();
+        }
+        return parent::beforeSave($insert);
     }
 
     /**
      * Validates password
      *
-     * @param string $password password to validate
-     * @return bool if password provided is valid for current user
+     * @param string $username
+     * @return User|null
      */
-    public function validatePassword($password)
+    public static function identity(string $username)
     {
-        return $this->password === $password;
+        return self::findByUsername($username);
     }
 
-    public function beforeSave()
+    /**
+     * Validates password
+     *
+     * @param string $username
+     * @return User|null
+     */
+    public static function authentication(self $user, string $password)
     {
 
     }

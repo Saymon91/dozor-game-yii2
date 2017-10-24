@@ -1,115 +1,213 @@
-html,
-body {
+@font-face {
+    font-family: 'logo';
+    src: url(/fonts/3_theHard_way_RMXfenotype.ttf);
+}
+
+@font-face {
+    font-family: 'logo1';
+    src: url(/fonts/8953.ttf);
+}
+
+@font-face {
+    font-family: 'logo2';
+    src: url(/fonts/9213.ttf);
+}
+
+@font-face {
+    font-family: 'logo3';
+    src: url(/fonts/10853.otf);
+}
+
+@font-face {
+    font-family: 'logo4';
+    src: url(/fonts/10865.otf);
+}
+
+@font-face {
+    font-family: 'logo5';
+    src: url(/fonts/10856.otf);
+}
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html, body {
+    display: block;
+    position: relative;
+    width: 100%;
     height: 100%;
 }
 
-.wrap {
-    min-height: 100%;
-    height: auto;
-    margin: 0 auto -60px;
-    padding: 0 0 60px;
+.page-title {
+    font-family: logo1;
 }
 
-.wrap > .container {
-    padding: 70px 15px 20px;
-}
-
-.footer {
-    height: 60px;
-    background-color: #f5f5f5;
-    border-top: 1px solid #ddd;
-    padding-top: 20px;
-}
-
-.jumbotron {
-    text-align: center;
-    background-color: transparent;
-}
-
-.jumbotron .btn {
-    font-size: 21px;
-    padding: 14px 24px;
-}
-
-.not-set {
-    color: #c55;
+header > blockquote {
+    color: #ffffff;
+    font-size: 35px;
     font-style: italic;
-}
-
-/* add sorting icons to gridview sort links */
-a.asc:after, a.desc:after {
-    position: relative;
-    top: 1px;
-    display: inline-block;
-    font-family: 'Glyphicons Halflings';
-    font-style: normal;
-    font-weight: normal;
-    line-height: 1;
-    padding-left: 5px;
-}
-
-a.asc:after {
-    content: /*"\e113"*/ "\e151";
-}
-
-a.desc:after {
-    content: /*"\e114"*/ "\e152";
-}
-
-.sort-numerical a.asc:after {
-    content: "\e153";
-}
-
-.sort-numerical a.desc:after {
-    content: "\e154";
-}
-
-.sort-ordinal a.asc:after {
-    content: "\e155";
-}
-
-.sort-ordinal a.desc:after {
-    content: "\e156";
-}
-
-.grid-view th {
-    white-space: nowrap;
-}
-
-.hint-block {
+    quotes: "\AB" "\BB   \A9";
+    padding-right: 50px;
     display: block;
-    margin-top: 5px;
-    color: #999;
 }
 
-.error-summary {
-    color: #a94442;
-    background: #fdf7f7;
-    border-left: 3px solid #eed3d7;
-    padding: 10px 20px;
-    margin: 0 0 15px 0;
+header > blockquote:before {
+    content: open-quote;
 }
 
-/* align the logout "link" (button in form) of the navbar */
-.nav li > form > button.logout {
-    padding: 15px;
-    border: none;
+header > blockquote:after {
+    content: close-quote;
 }
 
-@media(max-width:767px) {
-    .nav li > form > button.logout {
-        display:block;
-        text-align: left;
-        width: 100%;
-        padding: 10px 15px;
-    }
+.page-content > header {
+    background: rgba(0, 10, 18, 0.95);
+    overflow: hidden;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
 }
 
-.nav > li > form > button.logout:focus,
-.nav > li > form > button.logout:hover {
-    text-decoration: none;
+.page-title {
+    text-indent: 50px;
+    line-height: 12vh;
+    font-size: 12vh;
+    color: #ffc272;
 }
 
-.nav > li > form > button.logout:focus {
-    outline: none;
+.nodisplay {
+    display: none;
 }
+
+body > .background {
+    display: block;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    position: fixed;
+    content: " ";
+}
+
+body > .main-menu {
+    height: 100%;
+    z-index: 3;
+    width: 2.5vw;
+    overflow: hidden;
+    position: fixed;
+    background: #000000;
+    color: #ffffff;
+    transition-duration: 2s;
+}
+
+input#modal-window-toggle:checked + .background,
+input#modal-window-toggle:checked + .background + .page-content {
+    filter: blur(8px);
+}
+
+.modal-window-background {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.7);
+    content: " ";
+    z-index: 2;
+}
+
+.menu-toggle {
+    height: 100%;
+    width: 2.5vw;
+    min-width: 30px;
+    background: #000000;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition-duration: 2s;
+    cursor: pointer;
+    right: 0;
+    position: absolute;
+}
+
+.menu-toggle > span {
+    transform: rotate(-90deg);
+    color: red;
+    display: block;
+    transform-origin: center center;
+    font-size: 1.6em;
+}
+
+input#modal-window-toggle:checked + .background + .page-content + .modal-window-background,
+input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content + .modal-window-background
+{
+    display: block;
+}
+
+input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content + .modal-window-background + .main-menu {
+    transition-duration: 2s;
+    width: 66vw;
+}
+
+body > .page-content {
+    display: grid;
+    position: fixed;
+    z-index: 1;
+    width: 100vw;
+    height: 100vh;
+    grid-template-rows: 2fr 10fr 1fr;
+    grid-template-columns: 2fr 7fr 3fr;
+    grid-template-areas: "header header header" "left-bar center-content right-bar" "footer footer footer";
+    background: var(--background-image) no-repeat;
+    background-size: cover;
+    background-origin: border-box;
+}
+
+.login-form {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    top: 50px;
+}
+
+.login-form > .content {
+    padding: 20px 30px;
+    background: rgba(255, 255, 255, 0.4);
+    display: block;
+}
+
+.login-form:before {
+    display: block;
+    position: absolute;
+    background-image: var(--background-image);
+    content: " ";
+    width: 100vw;
+    height: 100vh;
+    top: calc(100vh / 11 * 9 - 100vh + 16px - 50px);
+    left: calc(100vw / 12 * 3 - 100vw);
+    background-size: cover;
+    -webkit-filter: blur(8px);
+    filter: blur(8px);
+    z-index: -1;
+}
+
+aside {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+}
+

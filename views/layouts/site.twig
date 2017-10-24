@@ -3,15 +3,38 @@
 <!DOCTYPE html>
 <html lang="{{ app.language }}">
 <head>
+    {% block head %}
     <meta charset="{{ app.charset }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ html.encode(this.title ?? app.title) }}</title>
+    <meta name="Author" content="Simon Zhuravlev">
+    <meta name="Robots" content="ALL">
+    <meta name="Description" content="Dozor game engine">
+    <meta name="Keywords" content="Dozor,dozor game,дозор,игры,досуг,развлечения,games,entertainment,квест,квесты,quest,quests">
+    <title>{% block title %}{% endblock %}</title>
     {{ html.csrfMetaTags | raw }}
+    <style>
+        :root {
+            --background-image: url("../images/background_{{ random(11) }}.jpg");
+        }
+    </style>
     {{   void(this.head) }}
+    {% endblock %}
 </head>
 <body>
 {{   void(this.beginBody()) }}
-{{ content | raw }}
+<input type="checkbox" class="nodisplay" id="menu-toggle">
+<input type="checkbox" class="nodisplay" id="modal-window-toggle">
+<div class="background"></div>
+<div class="page-content">
+    {% block page %}{{ content | raw }}{%  endblock %}
+</div>
+<label for="modal-window-toggle" class="modal-window-background"></label>
+{% block nav %}
+    <nav class="main-menu">
+        {% include '@layouts/site/_nav.twig'%}
+        <label for="menu-toggle" class="menu-toggle"><span>menu</span></label>
+    </nav>
+{% endblock %}
 {{   void(this.endBody()) }}
 </body>
 </html>
