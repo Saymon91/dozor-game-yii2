@@ -104,7 +104,7 @@ body > .main-menu {
     position: fixed;
     background: #000000;
     color: #ffffff;
-    transition-duration: 2s;
+    transition-duration: .2s;
 }
 
 input#modal-window-toggle:checked + .background,
@@ -120,6 +120,7 @@ input#modal-window-toggle:checked + .background + .page-content {
     background: rgba(0,0,0,.7);
     content: " ";
     z-index: 2;
+    opacity: 0;
 }
 
 .menu-toggle {
@@ -131,7 +132,7 @@ input#modal-window-toggle:checked + .background + .page-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    transition-duration: 2s;
+    transition-duration: .2s;
     cursor: pointer;
     right: 0;
     position: absolute;
@@ -148,11 +149,15 @@ input#modal-window-toggle:checked + .background + .page-content {
 input#modal-window-toggle:checked + .background + .page-content + .modal-window-background,
 input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content + .modal-window-background
 {
+    opacity: 1;
     display: block;
+}
+input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content + .modal-window-background {
+    transition-duration: .2s;
 }
 
 input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content + .modal-window-background + .main-menu {
-    transition-duration: 2s;
+    transition-duration: .2s;
     width: 66vw;
 }
 

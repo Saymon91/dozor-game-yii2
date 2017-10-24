@@ -1,8 +1,12 @@
 {{ use('yii/widgets/Menu') }}
 {{ use('yii/web/Url') }}
+{{ use('Yii') }}
 
-{{ menu_widget({
-    items : [
-        { label: 'Home', url: '/' }
-    ]
-}) }}
+{{ menu_widget({ items : [
+    { label: 'Home', url: '/' },
+    { label: 'About', url: '/about' },
+    { label: 'Contacts', url: '/contacts' },
+    { label: 'Login', url: '/login', vivible: Yii.app.user.isGuest },
+    { label: 'Registration', url: '/registration', vivible: Yii.app.user.isGuest },
+    { label: 'Profile', url: '/profile', visible: Yii.app.user.isGuest != null }
+]}) }}
