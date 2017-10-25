@@ -22,6 +22,19 @@ use Yii;
  */
 class User extends BasicModel
 {
+    public $username;
+
+    const LOGIN = 'login';
+    const REGISTRATION = 'registration';
+
+    public function scenarios()
+    {
+        return [
+            self::LOGIN => ['username', 'password'],
+            self::LOGIN => ['email', 'phone', 'password', 'name']
+        ];
+    }
+
     /**
      * @inheritdoc
      */

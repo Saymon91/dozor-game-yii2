@@ -1,0 +1,29 @@
+@font-face {
+    font-family: 'logo';
+    src: url(/fonts/3_theHard_way_RMXfenotype.ttf);
+}
+
+@font-face {
+    font-family: 'logo1';
+    src: url(/fonts/8953.ttf);
+}
+
+@font-face {
+    font-family: 'logo2';
+    src: url(/fonts/9213.ttf);
+}
+
+@font-face {
+    font-family: 'logo3';
+    src: url(/fonts/10853.otf);
+}
+
+@font-face {
+    font-family: 'logo4';
+    src: url(/fonts/10865.otf);
+}
+
+@font-face {
+    font-family: 'logo5';
+    src: url(/fonts/10856.otf);
+}

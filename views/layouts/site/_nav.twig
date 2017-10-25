@@ -2,11 +2,26 @@
 {{ use('yii/web/Url') }}
 {{ use('Yii') }}
 
-{{ menu_widget({ items : [
-    { label: 'Home', url: '/' },
-    { label: 'About', url: '/about' },
-    { label: 'Contacts', url: '/contacts' },
-    { label: 'Login', url: '/login', vivible: Yii.app.user.isGuest },
-    { label: 'Registration', url: '/registration', vivible: Yii.app.user.isGuest },
-    { label: 'Profile', url: '/profile', visible: Yii.app.user.isGuest != null }
-]}) }}
+{{ menu_widget({
+    labelTemplate: "<span class='menu-item-label'>{label}</span>",
+    submenuTemplate: "<ul class='category-content'>\n{items}\n</ul>",
+    items : [
+        { class: 'menu-items-group', options: { class: 'menu-category' }, items: [
+            { label: 'Home', url: '/' },
+            { label: 'About', url: '/about' },
+            { label: 'Contacts', url: '/contacts' },
+        ], label: 'Site' },
+        { class: 'menu-items-group', vivible: Yii.app.user.isGuest, options: { class: 'menu-category' }, items: [
+            { label: 'Games', url: '/games/list' },
+            { label: 'Commands', url: '/commands/list' },
+            { label: 'Locations', url: '/locatios/list' },
+            { label: 'Regions', url: '/regions/list' },
+            { label: 'Rules', url: '/rules/list' },
+        ], label: 'Portal' },
+        { options: { class: 'menu-category' }, items: [
+            { label: 'Login', url: '/login', vivible: Yii.app.user.isGuest },
+            { label: 'Registration', url: '/registration', vivible: Yii.app.user.isGuest },
+            { label: 'Profile', url: '/profile', visible: Yii.app.user.isGuest != null },
+        ]},
+    ]
+}) }}

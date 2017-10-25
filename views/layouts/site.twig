@@ -1,9 +1,9 @@
-{{ register_asset_bundle('app/assets/AppAsset') }}
+{{ register_asset_bundle('app/assets/SiteAsset') }}
 {{ void(this.beginPage()) }}
 <!DOCTYPE html>
 <html lang="{{ app.language }}">
 <head>
-    {% block head %}
+{% block head %}
     <meta charset="{{ app.charset }}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="Author" content="Simon Zhuravlev">
@@ -11,31 +11,37 @@
     <meta name="Description" content="Dozor game engine">
     <meta name="Keywords" content="Dozor,dozor game,дозор,игры,досуг,развлечения,games,entertainment,квест,квесты,quest,quests">
     <title>{% block title %}{% endblock %}</title>
+
+    <link rel="icon" type="image/x-icon" href="">
+    <link rel="apple-touch-icon" href="">
+    <link rel="canonical" href="">
     {{ html.csrfMetaTags | raw }}
     <style>
         :root {
             --background-image: url("../images/background_{{ random(11) }}.jpg");
         }
     </style>
-    {{   void(this.head) }}
-    {% endblock %}
+    {% block styles %}{% endblock %}
+    {% block scripts %}{% endblock %}
+    {{ void(this.head) }}
+{% endblock %}
 </head>
 <body>
-{{   void(this.beginBody()) }}
-<input type="checkbox" class="nodisplay" id="menu-toggle">
-<input type="checkbox" class="nodisplay" id="modal-window-toggle">
-<div class="background"></div>
-<div class="page-content">
-    {% block page %}{{ content | raw }}{% endblock %}
-</div>
-<label for="modal-window-toggle" class="modal-window-background"></label>
+{{ void(this.beginBody()) }}
+{% block modal %}{% include '@layouts/common/_modal.twig' %}{% endblock %}
 {% block nav %}
+    <input type="checkbox" class="nodisplay" id="menu-toggle">
     <nav class="main-menu">
-        {% include '@layouts/site/_nav.twig'%}
+        <div class="content">
+            <header>Current page</header>
+            {% include '@layouts/site/_nav.twig' %}
+        </div>
         <label for="menu-toggle" class="menu-toggle"><span>menu</span></label>
     </nav>
 {% endblock %}
-{{   void(this.endBody()) }}
+    <div class="background"></div>
+    <div class="page-content">{% block page %}{{ content | raw }}{% endblock %}</div>
+{{ void(this.endBody()) }}
 </body>
 </html>
 {{ void(this.endPage()) }}

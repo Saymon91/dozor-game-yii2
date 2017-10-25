@@ -1,0 +1,121 @@
+.main-menu {
+    height: 100%;
+    z-index: 3;
+    width: 43px;
+    position: fixed;
+    background: #010209;
+    color: #ffffff;
+    transition-duration: .2s;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    left: 0;
+    background: rgba(0,0,0,.7);
+    content: " ";
+    box-shadow: 0 0 300px 100px black inset;
+}
+
+.main-menu > .content {
+    overflow: hidden;
+    width: 0;
+}
+
+.main-menu > .content li {
+    list-style: none;
+    font-size: 1.2em;
+}
+
+.main-menu > .content > ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    overflow: auto;
+    background: black;
+}
+
+.main-menu > .content .category-content {
+    padding: 20px 30px;
+}
+
+.menu-category {
+    min-width: 130px;
+    width: 20vw;
+    box-shadow: 0 0 0.05px 0 darkred,
+    0 40px 40px -50px rgba(255,0,0,0.7),
+    0 -40px 40px -50px rgba(255,0,0,0.7),
+    40px 0 40px -50px rgba(255,0,0,0.7),
+    -40px 0 40px -50px rgba(255,0,0,0.7);
+    transition-duration: 0.4s;
+}
+
+.menu-category:hover {
+    box-shadow: 0 0 0 0 darkred,
+    0 40px 50px -35px rgba(255,0,0,0.7),
+    0 -40px 50px -35px rgba(255,0,0,0.7),
+    40px 0 50px -35px rgba(255,0,0,0.7),
+    -40px 0 50px -35px rgba(255,0,0,0.7);
+}
+
+.menu-category > .menu-item-label {
+    font-family: logo1;
+    color: #ffc272;
+    font-size: 1.4em;
+    display: block;
+    text-align: center;
+}
+
+input#menu-toggle:checked + input#modal-window-toggle + .background + .page-content
+{
+    filter: blur(8px);
+}
+
+.menu-toggle {
+    height: 100%;
+    width: 2.5vw;
+    min-width: 43px;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition-duration: .2s;
+    cursor: pointer;
+    background: black;
+}
+
+.menu-toggle > span {
+    transform: rotate(-90deg);
+    color: red;
+    display: block;
+    transform-origin: center center;
+    font-size: 1.6em;
+    opacity: 0.5;
+    background: none;
+}
+
+.menu-toggle > span:hover {
+    opacity: 1;
+}
+
+.modal-window-toggle {
+    display: none;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+}
+
+
+input#menu-toggle:checked ~ .main-menu {
+    width: 100vw;
+}
+
+input#menu-toggle:checked ~ .main-menu > .content {
+    width: 66vw;
+}
+
+input#menu-toggle:checked ~ .background, input#menu-toggle:checked ~ .page-content {
+    filter: blur(8px);
+}
