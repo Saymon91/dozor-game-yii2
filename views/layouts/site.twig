@@ -4,24 +4,24 @@
 <html lang="{{ app.language }}">
 <head>
 {% block head %}
-    <meta charset="{{ app.charset }}">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="Author" content="Simon Zhuravlev">
-    <meta name="Robots" content="ALL">
-    <meta name="Description" content="Dozor game engine">
-    <meta name="Keywords" content="Dozor,dozor game,дозор,игры,досуг,развлечения,games,entertainment,квест,квесты,quest,quests">
-    <title>{% block title %}{% endblock %}</title>
+    {% block meta %}
+        <meta charset="{{ app.charset }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="Author" content="Simon Zhuravlev">
+        <meta name="Robots" content="ALL">
+        <meta name="Description" content="Dozor game engine">
+        <meta name="Keywords" content="Dozor,dozor game,дозор,игры,досуг,развлечения,games,entertainment,квест,квесты,quest,quests">
+    {% endblock %}
 
     <link rel="icon" type="image/x-icon" href="">
     <link rel="apple-touch-icon" href="">
     <link rel="canonical" href="">
+
+    <title>{% block title %}{% endblock %}</title>
     {{ html.csrfMetaTags | raw }}
-    <style>
-        :root {
-            --background-image: url("../images/background_{{ random(11) }}.jpg");
-        }
-    </style>
-    {% block styles %}{% endblock %}
+    {% block styles %}
+        <style> :root { --background-image: url("../images/background_{{ random(11) }}.jpg"); } </style>
+    {% endblock %}
     {% block scripts %}{% endblock %}
     {{ void(this.head) }}
 {% endblock %}
@@ -29,16 +29,7 @@
 <body>
 {{ void(this.beginBody()) }}
 {% block modal %}{% include '@layouts/common/_modal.twig' %}{% endblock %}
-{% block nav %}
-    <input type="checkbox" class="nodisplay" id="menu-toggle">
-    <nav class="main-menu">
-        <div class="content">
-            <header>Current page</header>
-            {% include '@layouts/site/_nav.twig' %}
-        </div>
-        <label for="menu-toggle" class="menu-toggle"><span>menu</span></label>
-    </nav>
-{% endblock %}
+{% block nav %}{% include '@layouts/common/_nav.twig' %}{% endblock %}
     <div class="background"></div>
     <div class="page-content">{% block page %}{{ content | raw }}{% endblock %}</div>
 {{ void(this.endBody()) }}

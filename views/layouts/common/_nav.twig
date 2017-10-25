@@ -1,0 +1,9 @@
+{{ register_asset_bundle('app/assets/NavAsset') }}
+<input type="checkbox" class="nodisplay" id="menu-toggle">
+<nav class="main-menu">
+    <div class="content">
+        <header>Current page</header>
+        {% include '@layouts/site/_nav.twig' %}
+    </div>
+    <label for="menu-toggle" class="menu-toggle"><span>menu</span></label>
+</nav>
