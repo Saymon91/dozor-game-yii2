@@ -3,6 +3,7 @@
 namespace app\models;
 use Ramsey\Uuid\Uuid;
 use Yii;
+use yii\base\Exception;
 
 /**
  * User model
@@ -87,11 +88,51 @@ class User extends BasicModel
     /**
      * Validates password
      *
-     * @param string $username
-     * @return User|null
+     * @param User $user
+     * @param string $password
+     * @return User
+     * @throws Exception
      */
     public static function authentication(self $user, string $password)
     {
+        if ($user->checkPassword($password)) {
+            return $user;
+        }
 
+        throw new Exception();
+    }
+
+    /**
+     * Validates password
+     *
+     * @param User $user
+     * @return User
+     * @throws Exception
+     */
+    public static function authorization(self $user)
+    {
+        return $user->getRules();
+    }
+
+    /**
+     * Validates password
+     *
+     * @param string $username
+     * @param string $password
+     * @return User
+     * @throws Exception
+     */
+    public static function login(string $username, string $password)
+    {
+        $user = self::identity($username);
+        self::authentication($user, $password);
+        $rules = self::authorization($user);
+        Yii::$app->session->start($user, $rules, []);
+
+    }
+
+    public static function logout(self $user)
+    {
+        Yii::$app->session->destroy();
     }
 }
